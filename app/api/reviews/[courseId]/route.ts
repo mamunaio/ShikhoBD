@@ -50,10 +50,11 @@ export async function POST(
       const reviews = await Review.find({ courseId });
       const avgRating = reviews.reduce((acc, curr) => acc + curr.rating, 0) / reviews.length;
       
-      await Course.findByIdAndUpdate(params.courseId, {
+      await Course.findByIdAndUpdate(courseId, {
         'stats.avgRating': avgRating,
         'stats.totalReviews': reviews.length
       });
+
 
       return apiResponse.success(review, 'আপনার রিভিউ সফলভাবে যুক্ত হয়েছে।', 201);
     } catch (error: any) {
